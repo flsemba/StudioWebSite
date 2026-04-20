@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Farm Siege</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #0a0f16;
+    color: #fff;
+}
+
+/* NAV */
+nav {
+    padding: 15px;
+    background: #111;
+}
+nav a {
+    color: #00e5ff;
+    text-decoration: none;
+}
+
+/* HERO */
+.hero {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    padding: 30px;
+}
+
+/* PARALLAX BACKGROUND */
+.hero-bg {
+    position: absolute;
+    top: -20%;
+    left: 0;
+    width: 100%;
+    height: 140%;
+    background: url("Farm.png") center/cover no-repeat;
+    z-index: 0;
+    transition: transform 0.1s linear;
+}
+
+/* OVERLAY */
+.hero::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+    z-index: 1;
+}
+
+/* TITLE */
+.hero h1 {
+    position: relative;
+    z-index: 2;
+    font-size: 42px;
+    color: #00e5ff;
+    text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #00e5ff, 0 0 20px #00e5ff;
+    }
+    to {
+        text-shadow: 0 0 25px #00e5ff, 0 0 50px #00e5ff;
+    }
+}
+
+/* CONTENT */
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 40px 20px;
+}
+
+.section {
+    margin-bottom: 40px;
+}
+
+.section h2 {
+    color: #00e5ff;
+    margin-bottom: 10px;
+}
+
+/* VIDEO */
+.video-container {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #1f2d3a;
+    box-shadow: 0 0 20px rgba(0,229,255,0.2);
+    transition: 0.3s;
+}
+
+.video-container:hover {
+    box-shadow: 0 0 40px rgba(0,229,255,0.5);
+}
+
+.video-container iframe {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+/* BUTTON */
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: #00e5ff;
+    color: #000;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: #00bcd4;
+}
+
+/* GALLERY */
+.gallery {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.gallery img {
+    width: 100%;
+    max-width: 280px;
+    border-radius: 8px;
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    background: #0a0a0a;
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="index.html">← Geri Dön</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+    <div class="hero-bg"></div>
+    <h1>Farm Siege</h1>
+</div>
+
+<!-- CONTENT -->
+<div class="container">
+
+    <!-- TRAILER -->
+    <div class="section">
+        <h2>Trailer</h2>
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/VIDEO_ID"
+                title="Farm Siege Trailer"
+                frameborder="0"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="section">
+        <h2>Oyun Hakkında</h2>
+        <p>
+            Farm Siege, oyuncunun çiftliğini düşman dalgalarına karşı koruduğu
+            hızlı tempolu bir top-down shooter oyunudur. 
+            Strateji ve reflekslerin birleştiği bu oyunda hayatta kalmak kolay olmayacak.
+        </p>
+    </div>
+
+    <!-- FEATURES -->
+    <div class="section">
+        <h2>Özellikler</h2>
+        <ul>
+            <li>🔫 Dalga sistemi (wave system)</li>
+            <li>🚜 Çiftlik savunma mekaniği</li>
+            <li>👾 Farklı düşman türleri</li>
+            <li>⚡ Hızlı ve akıcı gameplay</li>
+        </ul>
+    </div>
+
+    <!-- GALLERY -->
+    <div class="section">
+        <h2>Ekran Görüntüleri</h2>
+        <div class="gallery">
+            <img src="Farm.png">
+            <img src="Farm2.png">
+        </div>
+    </div>
+
+    <!-- DOWNLOAD -->
+    <div class="section">
+        <h2>Oyna</h2>
+        <a href="#" class="btn">Demo İndir</a>
+    </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+    © 2026 AKN Studio
+</footer>
+
+<!-- PARALLAX -->
+<script>
+window.addEventListener("scroll", function() {
+    const bg = document.querySelector(".hero-bg");
+    let scroll = window.scrollY;
+    bg.style.transform = "translateY(" + scroll * 0.3 + "px)";
+});
+</script>
+
+</body>
+</html>
