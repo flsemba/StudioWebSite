@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bizim Aşk Arşivimiz ❤️ | Yıllarımız</title>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #fce4ec 0%, #f3e5f5 50%, #fff3e0 100%);
+      font-family: 'Nunito', sans-serif;
+      color: #5c3d46;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+      padding: 20px 0;
+    }
+
+    /* Arka Plan Dökülen Lale Yaprakları */
+    .petals-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .petal {
+      position: absolute;
+      top: -10%;
+      background: linear-gradient(135deg, #ff80ab, #ff4081);
+      border-radius: 15px 0px 15px 0px;
+      opacity: 0.6;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* Işıltılı Yıldızlar Animasyonu */
+    @keyframes twinkleStar {
+      0%, 100% { opacity: 0.2; transform: scale(0.8); }
+      50% { opacity: 0.9; transform: scale(1.3); filter: drop-shadow(0 0 6px rgba(245, 158, 11, 0.8)); }
+    }
+
+    .star-twinkle {
+      position: absolute;
+      pointer-events: none;
+      animation: twinkleStar ease-in-out infinite alternate;
+      z-index: 2;
+    }
+
+    /* Ana Konteyner */
+    .container {
+      position: relative;
+      z-index: 10;
+      padding: 20px;
+      width: 100%;
+      max-width: 540px;
+    }
+
+    /* Kart Tasarımı */
+    .card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 30px;
+      padding: 40px 30px;
+      box-shadow: 0 15px 35px rgba(216, 112, 147, 0.15),
+                  inset 0 0 15px rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(255, 255, 255, 0.85);
+    }
+
+    /* Başlık */
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 2.8rem;
+      color: #d81b60;
+      margin-bottom: 8px;
+      text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+    }
+
+    p.subtitle {
+      font-size: 1.05rem;
+      color: #8e5263;
+      margin-bottom: 25px;
+      font-weight: 600;
+    }
+
+    /* Yıl Kartları Listesi */
+    .years-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .year-card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      text-decoration: none;
+      box-shadow: 0 6px 15px rgba(220, 100, 140, 0.08);
+      border: 1px solid rgba(255, 182, 193, 0.5);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .year-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(216, 27, 96, 0.2);
+      border-color: #ff4081;
+      background: #fff;
+    }
+
+    .year-info {
+      text-align: left;
+    }
+
+    .year-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #c2185b;
+    }
+
+    .year-desc {
+      font-size: 0.85rem;
+      color: #a36275;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    .year-icon {
+      font-size: 1.5rem;
+      background: #fce4ec;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+      transition: transform 0.3s;
+    }
+
+    .year-card:hover .year-icon {
+      transform: scale(1.1) rotate(10deg);
+    }
+
+    /* Köşe Lale SVG Motifleri */
+    .tulip-corner {
+      position: absolute;
+      width: 55px;
+      height: 55px;
+      pointer-events: none;
+      z-index: 12;
+    }
+
+    .top-left { top: -15px; left: -15px; transform: rotate(-25deg); }
+    .top-right { top: -15px; right: -15px; transform: rotate(65deg); }
+    .bottom-left { bottom: -15px; left: -15px; transform: rotate(-115deg); }
+    .bottom-right { bottom: -15px; right: -15px; transform: rotate(155deg); }
+
+    /* Modallar (Geri Sayım ve Şifre) */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(92, 61, 70, 0.6);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 25px;
+      padding: 35px 25px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 15px 35px rgba(216, 112, 147, 0.25);
+      border: 2px solid rgba(255, 182, 193, 0.6);
+      position: relative;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: #8e5263;
+      cursor: pointer;
+    }
+
+    .modal-input {
+      width: 100%;
+      padding: 12px 15px;
+      text-align: center;
+      border-radius: 15px;
+      border: 2px solid rgba(216, 27, 96, 0.3);
+      background: #fce4ec50;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #c2185b;
+      outline: none;
+      margin: 15px 0;
+      transition: border-color 0.2s;
+    }
+
+    .modal-input:focus {
+      border-color: #d81b60;
+    }
+
+    .modal-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 15px;
+      background: linear-gradient(135deg, #ff4081, #d81b60);
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(216, 27, 96, 0.3);
+      transition: transform 0.2s;
+    }
+
+    .modal-btn:hover {
+      transform: scale(1.02);
+    }
+
+    .error-msg {
+      color: #e53935;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 10px;
+      display: none;
+    }
+
+    /* Modal İçindeki Sayaç Kutusu */
+    .timer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 20px 0;
+    }
+
+    .timer-box {
+      background: #fce4ec;
+      border-radius: 12px;
+      padding: 10px 4px;
+      border: 1px solid rgba(255, 128, 171, 0.4);
+    }
+
+    .timer-val {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #c2185b;
+    }
+
+    .timer-lbl {
+      font-size: 0.7rem;
+      color: #a36275;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 35px 20px 30px 20px; }
+      h1 { font-size: 2.3rem; }
+      .tulip-corner { width: 45px; height: 45px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dökülen Lale Yaprakları ve Işıltılı Yıldızlar -->
+  <div class="petals-container" id="petals"></div>
+  <div id="bg-stars"></div>
+
+  <div class="container">
+    <div class="card">
+      
+      <!-- Köşe Lale Motifleri (SVG) -->
+      <svg class="tulip-corner top-left" viewBox="0 0 100 100">
+        <path d="M50,15 C35,15 25,35 25,50 C25,65 35,75 50,75 C65,75 75,65 75,50 C75,35 65,15 50,15 Z" fill="#ff4081" opacity="0.85"/>
+        <path d="M50,15 C40,25 35,40 35,55 C35,65 42,73 50,75 C45,65 45,35 50,15 Z" fill="#e91e63"/>
+        <path d="M50,15 C60,25 65,40 65,55 C65,65 58,73 50,75 C55,65 55,35 50,15 Z" fill="#f48fb1"/>
+        <path d="M50,75 Q45,90 30,95" stroke="#81c784" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M50,78 Q35,80 25,70 C32,78 42,80 50,78 Z" fill="#66bb6a"/>
+      </svg>
+
+      <svg class="tulip-corner top-right" viewBox="0 0 100 100">
+        <path d="M50,15 C35,15 25,35 25,50 C25,65 35,75 50,75 C65,75 75,65 75,50 C75,35 65,15 50,15 Z" fill="#ff4081" opacity="0.85"/>
+        <path d="M50,15 C40,25 35,40 35,55 C35,65 42,73 50,75 C45,65 45,35 50,15 Z" fill="#e91e63"/>
+        <path d="M50,15 C60,25 65,40 65,55 C65,65 58,73 50,75 C55,65 55,35 50,15 Z" fill="#f48fb1"/>
+        <path d="M50,75 Q45,90 30,95" stroke="#81c784" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M50,78 Q35,80 25,70 C32,78 42,80 50,78 Z" fill="#66bb6a"/>
+      </svg>
+
+      <svg class="tulip-corner bottom-left" viewBox="0 0 100 100">
+        <path d="M50,15 C35,15 25,35 25,50 C25,65 35,75 50,75 C65,75 75,65 75,50 C75,35 65,15 50,15 Z" fill="#ff4081" opacity="0.85"/>
+        <path d="M50,15 C40,25 35,40 35,55 C35,65 42,73 50,75 C45,65 45,35 50,15 Z" fill="#e91e63"/>
+        <path d="M50,15 C60,25 65,40 65,55 C65,65 58,73 50,75 C55,65 55,35 50,15 Z" fill="#f48fb1"/>
+        <path d="M50,75 Q45,90 30,95" stroke="#81c784" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M50,78 Q35,80 25,70 C32,78 42,80 50,78 Z" fill="#66bb6a"/>
+      </svg>
+
+      <svg class="tulip-corner bottom-right" viewBox="0 0 100 100">
+        <path d="M50,15 C35,15 25,35 25,50 C25,65 35,75 50,75 C65,75 75,65 75,50 C75,35 65,15 50,15 Z" fill="#ff4081" opacity="0.85"/>
+        <path d="M50,15 C40,25 35,40 35,55 C35,65 42,73 50,75 C45,65 45,35 50,15 Z" fill="#e91e63"/>
+        <path d="M50,15 C60,25 65,40 65,55 C65,65 58,73 50,75 C55,65 55,35 50,15 Z" fill="#f48fb1"/>
+        <path d="M50,75 Q45,90 30,95" stroke="#81c784" stroke-width="4" fill="none" stroke-linecap="round"/>
+        <path d="M50,78 Q35,80 25,70 C32,78 42,80 50,78 Z" fill="#66bb6a"/>
+      </svg>
+
+      <h1>Bizim Aşk Arşivimiz 🌷</h1>
+      <p class="subtitle">Birlikte yazdığımız masalın yıllara göre odası...</p>
+
+      <!-- Yıl Seçim Kartları Listesi -->
+      <div class="years-list">
+        
+        <!-- 1. Yılımız -->
+        <a href="#" class="year-card" onclick="alert('1. yılımızın arşivi yakında burada olacak sevgilim! ❤️'); return false;">
+          <div class="year-info">
+            <div class="year-title">🌸 1. Yılımız</div>
+            <div class="year-desc">19 Ekim 2024 - 19 Ekim 2025</div>
+          </div>
+          <div class="year-icon">✨</div>
+        </a>
+
+        <!-- 2. Yılımız (Zaman Kilitli & Şifreli) -->
+        <div onclick="handleYear2Click()" class="year-card" style="cursor: pointer;">
+          <div class="year-info">
+            <div class="year-title">🌷 2. Yılımız (Özel Sürpriz)</div>
+            <div class="year-desc">19 Ekim 2025 - 19 Ekim 2026</div>
+          </div>
+          <div class="year-icon">🔒</div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODAL 1: ZAMAN HENÜZ DOLMADIYSA ÇIKAN GERİ SAYIM PENCERESİ -->
+  <div id="timerModal" class="modal-overlay">
+    <div class="modal-card">
+      <button onclick="closeModal('timerModal')" class="modal-close">&times;</button>
+      <div style="font-size: 2.2rem; margin-bottom: 5px;">⏳</div>
+      <h3 style="font-family: 'Dancing Script', cursive; font-size: 2rem; color: #d81b60;">Henüz Zamanı Gelmedi</h3>
+      <p style="font-size: 0.85rem; color: #8e5263; margin-top: 5px;">2. yılımızın kutlanmasına ve sürprizin açılmasına kalan süre:</p>
+      
+      <div class="timer-grid">
+        <div class="timer-box"><div class="timer-val" id="tDays">00</div><div class="timer-lbl">Gün</div></div>
+        <div class="timer-box"><div class="timer-val" id="tHours">00</div><div class="timer-lbl">Saat</div></div>
+        <div class="timer-box"><div class="timer-val" id="tMins">00</div><div class="timer-lbl">Dakika</div></div>
+        <div class="timer-box"><div class="timer-val" id="tSecs">00</div><div class="timer-lbl">Saniye</div></div>
+      </div>
+
+      <p style="font-size: 0.8rem; color: #a36275; font-style: italic;">Sabırsızlandığını biliyorum sevgilim, az kaldı! ❤️</p>
+    </div>
+  </div>
+
+  <!-- MODAL 2: ZAMAN DOLDUĞUNDA ÇIKAN ŞİFRE PENCERESİ -->
+  <div id="passModal" class="modal-overlay">
+    <div class="modal-card">
+      <button onclick="closeModal('passModal')" class="modal-close">&times;</button>
+      <div style="font-size: 2.2rem; margin-bottom: 5px;">🔑</div>
+      <h3 style="font-family: 'Dancing Script', cursive; font-size: 2rem; color: #d81b60;">Süre Doldu! Şifreni Gir</h3>
+      <p style="font-size: 0.85rem; color: #8e5263; margin-top: 5px;">2. yıl sürprizine girmek için özel tarihimiz ❤️</p>
+      
+      <input type="text" id="passInput" placeholder="GG.AA.YYYY" class="modal-input">
+      <button onclick="checkPassword()" class="modal-btn">Kilidi Aç ✨</button>
+      <p id="errorMsg" class="error-msg"></p>
+    </div>
+  </div>
+
+  <script>
+    // ==========================================
+    // ⚙️ AYARLAR VE HEDEF TARİH / ŞİFRE
+    // ==========================================
+    // 2. Yılın tam açılma zamanı: 19 Ekim 2026 Saat 00:00
+    const TARGET_DATE = new Date("October 19, 2026 00:00:00").getTime();
+    
+    // Şifre ve İpucu Ayarları
+    const SECRET_PASSWORD = "19.10.2024";
+    const HINT_MESSAGE = "Yanlış şifre sevgilim! İpucu: 19.10.2024 😉";
+
+    let countdownInterval = null;
+
+    // 1. AŞK ATMOSFERİ (Lale Yaprakları ve Yıldızlar)
+    const petalsContainer = document.getElementById('petals');
+    for (let i = 0; i < 15; i++) {
+      const petal = document.createElement('div');
+      petal.className = 'petal';
+      petal.style.left = Math.random() * 100 + '%';
+      petal.style.width = (Math.random() * 12 + 10) + 'px';
+      petal.style.height = (Math.random() * 18 + 15) + 'px';
+      petal.style.animationDuration = (Math.random() * 5 + 6) + 's';
+      petal.style.animationDelay = (Math.random() * 5) + 's';
+      petalsContainer.appendChild(petal);
+    }
+
+    const starsContainer = document.getElementById('bg-stars');
+    const starIcons = ['✦', '★', '✧', '✨'];
+    for (let i = 0; i < 20; i++) {
+      const star = document.createElement('div');
+      star.className = 'star-twinkle';
+      star.innerText = starIcons[Math.floor(Math.random() * starIcons.length)];
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+      star.style.animationDelay = (Math.random() * 3) + 's';
+      star.style.color = '#ff4081';
+      star.style.fontSize = (Math.random() * 8 + 10) + 'px';
+      starsContainer.appendChild(star);
+    }
+
+    // 2. TIKLAMA KONTROLÜ (Açılabilir mi yoksa Sayaç mı göstersin?)
+    function handleYear2Click() {
+      const now = new Date().getTime();
+      const distance = TARGET_DATE - now;
+
+      if (distance > 0) {
+        // Süre henüz dolmamışsa sayaç modalını aç ve canlı saydır
+        openModal('timerModal');
+        updateTimerDisplay();
+        if (!countdownInterval) {
+          countdownInterval = setInterval(updateTimerDisplay, 1000);
+        }
+      } else {
+        // Süre dolmuşsa şifre modalını aç
+        openModal('passModal');
+      }
+    }
+
+    // 3. SAYAÇ GÜNCELLEME
+    function updateTimerDisplay() {
+      const now = new Date().getTime();
+      const distance = TARGET_DATE - now;
+
+      if (distance <= 0) {
+        clearInterval(countdownInterval);
+        closeModal('timerModal');
+        openModal('passModal');
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const mins = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const secs = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('tDays').innerText = String(days).padStart(2, '0');
+      document.getElementById('tHours').innerText = String(hours).padStart(2, '0');
+      document.getElementById('tMins').innerText = String(mins).padStart(2, '0');
+      document.getElementById('tSecs').innerText = String(secs).padStart(2, '0');
+    }
+
+    // 4. ŞİFRE DOĞRULAMA
+    function checkPassword() {
+      const input = document.getElementById('passInput').value.trim().toLowerCase();
+      const cleanInput = input.replace(/[^a-z0-9]/g, '');
+      const cleanSecret = SECRET_PASSWORD.trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+
+      if (cleanInput === cleanSecret) {
+        if (typeof confetti === 'function') {
+          confetti({
+            particleCount: 120,
+            spread: 80,
+            origin: { y: 0.6 },
+            colors: ['#ff4081', '#ff80ab', '#e91e63', '#f48fb1']
+          });
+        }
+        setTimeout(() => {
+          window.location.href = 'surprise.html';
+        }, 800);
+      } else {
+        const errorEl = document.getElementById('errorMsg');
+        errorEl.innerText = HINT_MESSAGE;
+        errorEl.style.display = 'block';
+      }
+    }
+
+    // Modal Yardımcı Fonksiyonlar
+    function openModal(id) {
+      document.getElementById(id).classList.add('active');
+      if (id === 'passModal') {
+        document.getElementById('errorMsg').style.display = 'none';
+        document.getElementById('passInput').value = '';
+      }
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('active');
+    }
+
+    // Enter Tuşu Desteği
+    document.getElementById('passInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        checkPassword();
+      }
+    });
+  </script>
+</body>
+</html>

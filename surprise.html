@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sana Özel Sürpriz ❤️ | 2. Yılımız</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <!-- Google Fonts: Playfair Display, Plus Jakarta Sans & Dancing Script -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome for Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pastelPink: '#FFF0F3',
+            pastelPeach: '#FFE8E0',
+            pastelLavender: '#F3E8FF',
+            softRose: '#F3A0B2',
+            deepRose: '#9E5268',
+            warmGold: '#F59E0B',
+            softText: '#5A4A58'
+          },
+          fontFamily: {
+            serif: ['"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            handwriting: ['"Dancing Script"', 'cursive'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Soft Floating Card Animation */
+    @keyframes floatSoft {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(1deg); }
+    }
+
+    .float-card {
+      animation: floatSoft 5s ease-in-out infinite;
+    }
+
+    /* Soft Glassmorphism Panel */
+    .glass-panel {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 24px 60px rgba(158, 82, 104, 0.08), 0 4px 16px rgba(0, 0, 0, 0.02);
+    }
+
+    /* Ultra-Realistic 3D Botanical Petal Interaction */
+    .petal-group {
+      cursor: pointer;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+      transform-origin: 200px 200px;
+      filter: drop-shadow(0 6px 12px rgba(158, 82, 104, 0.16));
+    }
+
+    .petal-group:hover {
+      filter: drop-shadow(0 14px 28px rgba(243, 160, 178, 0.85)) brightness(1.06);
+      transform: scale(1.06) translateY(-3px);
+    }
+
+    /* Smooth Natural Petal Pluck Animation */
+    .petal-falling {
+      pointer-events: none;
+      animation: naturalPetalFall 1.2s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes naturalPetalFall {
+      0% {
+        opacity: 1;
+        transform: scale(1) translate(0, 0) rotate(0deg);
+      }
+      25% {
+        opacity: 0.95;
+        transform: scale(1.08) translate(-10px, -20px) rotate(-15deg);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.4) translate(50px, 240px) rotate(120deg);
+      }
+    }
+
+    /* Center Golden Core Breathing Glow Effect */
+    @keyframes centerGlowPulse {
+      0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 16px rgba(245, 158, 11, 0.5));
+      }
+      50% {
+        transform: scale(1.04);
+        filter: drop-shadow(0 0 30px rgba(245, 158, 11, 0.9));
+      }
+    }
+
+    .daisy-center-pulse {
+      animation: centerGlowPulse 3.5s ease-in-out infinite;
+      transform-origin: 200px 200px;
+    }
+
+    /* Floating Background Hearts Animation */
+    @keyframes floatHeartBg {
+      0% { transform: translateY(105vh) scale(0.8) rotate(0deg); opacity: 0; }
+      20% { opacity: 0.6; }
+      80% { opacity: 0.6; }
+      100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+    }
+
+    .bg-heart {
+      position: absolute;
+      pointer-events: none;
+      animation: floatHeartBg linear infinite;
+    }
+
+    /* Sparkle Particle Animations */
+    @keyframes particleFly {
+      0% { opacity: 1; transform: translate(0, 0) scale(1) rotate(0deg); }
+      100% { opacity: 0; transform: translate(var(--tx), var(--ty)) scale(0.1) rotate(180deg); }
+    }
+
+    .sparkle-particle {
+      position: absolute;
+      pointer-events: none;
+      font-size: 20px;
+      animation: particleFly 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      z-index: 50;
+    }
+
+    /* Equalizer Wave Animation */
+    .eq-bar {
+      width: 3px;
+      background-color: #9E5268;
+      border-radius: 2px;
+      animation: eqBounce 1.2s ease-in-out infinite alternate;
+    }
+    .eq-bar:nth-child(1) { height: 6px; animation-delay: 0.1s; }
+    .eq-bar:nth-child(2) { height: 14px; animation-delay: 0.3s; }
+    .eq-bar:nth-child(3) { height: 10px; animation-delay: 0.2s; }
+    .eq-bar:nth-child(4) { height: 16px; animation-delay: 0.4s; }
+
+    @keyframes eqBounce {
+      0% { transform: scaleY(0.3); }
+      100% { transform: scaleY(1.1); }
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-pastelPink via-pastelPeach to-pastelLavender min-h-screen font-sans text-softText relative overflow-x-hidden selection:bg-softRose/30 pb-20">
+
+  <!-- Background Floating Hearts Container -->
+  <div id="bg-hearts" class="fixed inset-0 pointer-events-none z-0"></div>
+
+  <!-- Navigation & Music Control Bar -->
+  <nav class="w-full max-w-4xl mx-auto px-4 pt-6 flex items-center justify-between z-20 relative">
+    <a href="index.html" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/85 backdrop-blur-md text-deepRose text-xs sm:text-sm font-semibold shadow-xs border border-white hover:bg-white transition-all transform hover:-translate-y-0.5">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+      </svg>
+      Geri Sayıma Dön
+    </a>
+
+    <!-- MP3 Müzik Kontrol Butonu & Equalizer -->
+    <button id="musicBtn" onclick="toggleRomanticMusic()" class="inline-flex items-center gap-2 px-4 py-2 rounded-2xl bg-white/85 backdrop-blur-md text-deepRose text-xs sm:text-sm font-semibold shadow-xs border border-white hover:bg-white transition-all transform hover:-translate-y-0.5">
+      <span id="musicIcon">🎵</span>
+      <span id="musicText">Bizim Şarkımız</span>
+      <div id="eqWave" class="hidden items-center gap-0.5 h-4 ml-1">
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+        <div class="eq-bar"></div>
+      </div>
+    </button>
+  </nav>
+
+  <!-- Hero Header Title Section -->
+  <header class="max-w-3xl mx-auto text-center mt-8 px-4 z-10 relative">
+    <div class="inline-block px-4 py-1.5 rounded-full bg-white/80 backdrop-blur-md text-deepRose text-xs font-semibold shadow-xs mb-3 border border-white/80 animate-pulse">
+      🌸 2. Yılımıza Özel Sürpriz Sayfası
+    </div>
+    <h1 class="font-serif text-3xl sm:text-5xl font-bold text-deepRose leading-tight">
+      İyi Ki Hayatımdasın Sevgilim ❤️
+    </h1>
+
+    <!-- 19 EKİM 2024 BAŞLANGIÇLI CANLI GERÇEK ZAMANLI SAYAÇ -->
+    <div class="mt-4 inline-flex items-center gap-3 bg-white/80 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/90 shadow-xs">
+      <span class="text-xs font-bold text-deepRose/80 uppercase tracking-wider">Seninle Geçen Süre:</span>
+      <div class="flex items-center gap-1.5 text-deepRose font-semibold text-xs sm:text-sm" id="timeTogetherCounter">
+        <span id="cntDays" class="font-bold text-base text-deepRose">0</span> gün 
+        <span id="cntHours" class="font-bold text-base text-deepRose">0</span> saat 
+        <span id="cntMins" class="font-bold text-base text-deepRose">0</span> dk 
+        <span id="cntSecs" class="font-bold text-base text-deepRose">0</span> sn
+      </div>
+    </div>
+
+    <p class="text-sm sm:text-base text-softText/80 mt-3 max-w-lg mx-auto font-medium">
+      Seninle geçen her gün hayatımın en güzel hediyesi. Sana özel hazırladığım bu küçük köşede papatya falına bakabilir, mektubunu okuyabilir ve anılarımızı tazeleyebilirsin.
+    </p>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 mt-10 space-y-12 z-10 relative">
+
+    <!-- SECTION 1: PERFECT SYMMETRICAL 3D INTERACTIVE DAISY -->
+    <section class="glass-panel rounded-3xl p-6 sm:p-10 text-center relative overflow-hidden">
+      <div class="max-w-md mx-auto relative" id="daisyContainer">
+        <span class="text-xs font-bold tracking-widest text-deepRose/70 uppercase">İnteraktif Papatya Falı</span>
+        <h2 class="font-serif text-2xl sm:text-3xl font-semibold text-deepRose mt-1">
+          Papatya Yapraklarına Dokun ✨
+        </h2>
+        <p class="text-xs sm:text-sm text-softText/80 mt-1">
+          Her yaprakta seninle ilgili kalbimden geçen tatlı bir not gizli...
+        </p>
+
+        <!-- HIGH-PRECISION 3D SVG DAISY GRAPHIC -->
+        <div class="relative w-80 h-80 sm:w-96 sm:h-96 mx-auto my-4 flex items-center justify-center select-none">
+          <svg id="daisySvg" class="w-full h-full filter drop-shadow-2xl" viewBox="0 0 400 400">
+            <defs>
+              <linearGradient id="petalGrad3D" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#FFFFFF" />
+                <stop offset="60%" stop-color="#FFF0F3" />
+                <stop offset="85%" stop-color="#FCE4EC" />
+                <stop offset="100%" stop-color="#F48FB1" />
+              </linearGradient>
+
+              <linearGradient id="petalHighlight" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="rgba(255,255,255,0.95)" />
+                <stop offset="45%" stop-color="rgba(255,255,255,0.15)" />
+                <stop offset="100%" stop-color="rgba(190, 24, 93, 0.2)" />
+              </linearGradient>
+
+              <radialGradient id="centerCore3D" cx="35%" cy="30%" r="70%">
+                <stop offset="0%" stop-color="#FEF08A" />
+                <stop offset="25%" stop-color="#FBBF24" />
+                <stop offset="65%" stop-color="#D97706" />
+                <stop offset="90%" stop-color="#B45309" />
+                <stop offset="100%" stop-color="#78350F" />
+              </radialGradient>
+
+              <radialGradient id="centerShadow" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(120, 53, 15, 0.6)" />
+                <stop offset="70%" stop-color="rgba(217, 119, 6, 0.15)" />
+                <stop offset="100%" stop-color="rgba(0,0,0,0)" />
+              </radialGradient>
+
+              <pattern id="seedPattern" x="0" y="0" width="10" height="10" patternUnits="userSpaceOnUse">
+                <circle cx="3" cy="3" r="1.3" fill="#78350F" opacity="0.3"/>
+                <circle cx="8" cy="7" r="1.2" fill="#FEF08A" opacity="0.65"/>
+                <circle cx="7" cy="2" r="0.9" fill="#D97706" opacity="0.4"/>
+              </pattern>
+
+              <linearGradient id="stemGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#86EFAC" />
+                <stop offset="40%" stop-color="#22C55E" />
+                <stop offset="80%" stop-color="#16A34A" />
+                <stop offset="100%" stop-color="#14532D" />
+              </linearGradient>
+
+              <linearGradient id="leafGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#4ADE80" />
+                <stop offset="50%" stop-color="#16A34A" />
+                <stop offset="100%" stop-color="#14532D" />
+              </linearGradient>
+            </defs>
+
+            <g id="stemAndLeaves">
+              <path d="M 200 220 Q 186 300 202 400" stroke="url(#stemGrad)" stroke-width="12" stroke-linecap="round" fill="none" filter="drop-shadow(3px 5px 8px rgba(0,0,0,0.15))"/>
+              <path d="M 202 295 C 265 270 290 300 300 330 C 260 350 218 330 202 312 Z" fill="url(#leafGrad)" opacity="0.92" filter="drop-shadow(2px 4px 6px rgba(0,0,0,0.15))"/>
+              <path d="M 202 295 Q 252 310 300 330" stroke="#DCFCE7" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+              <path d="M 198 325 C 130 300 105 335 95 365 C 142 380 182 355 198 340 Z" fill="url(#leafGrad)" opacity="0.88" filter="drop-shadow(2px 4px 6px rgba(0,0,0,0.15))"/>
+              <path d="M 198 325 Q 142 342 95 365" stroke="#DCFCE7" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.75"/>
+            </g>
+
+            <g id="petalsGroup"></g>
+
+            <g id="daisyCenterGroup" class="cursor-pointer daisy-center-pulse group" onclick="clickDaisyCenter()">
+              <circle cx="200" cy="200" r="48" fill="#F59E0B" opacity="0.22" class="group-hover:scale-125 transition-transform duration-500" />
+              <circle cx="200" cy="200" r="42" fill="url(#centerShadow)" />
+              <circle cx="200" cy="200" r="38" fill="url(#centerCore3D)" class="transition-transform duration-300 group-hover:scale-105" />
+              <circle cx="200" cy="200" r="38" fill="url(#seedPattern)" />
+              <circle cx="200" cy="200" r="31" fill="none" stroke="#FEF08A" stroke-width="2" stroke-dasharray="4,4" opacity="0.85" />
+              <circle cx="200" cy="200" r="21" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-dasharray="3,3" opacity="0.7" />
+              <ellipse cx="188" cy="184" rx="10" ry="6" fill="#FFFFFF" opacity="0.55" transform="rotate(-25 188 184)"/>
+            </g>
+          </svg>
+        </div>
+
+        <div id="noteBox" class="min-h-[75px] bg-white/90 backdrop-blur-md rounded-2xl p-4 border border-softRose/30 shadow-xs flex items-center justify-center transition-all duration-300">
+          <p id="noteText" class="text-sm sm:text-base font-medium text-deepRose italic text-center leading-snug">
+            ✨ Bir yaprağa tıkla ve falını başlat sevgilim...
+          </p>
+        </div>
+
+        <div class="mt-3 text-xs text-softText/60 flex items-center justify-center gap-2">
+          <span>Kalan Yaprak Sayısı:</span>
+          <span id="petalsCount" class="font-bold text-deepRose bg-white/80 px-2.5 py-0.5 rounded-full border border-softRose/20 shadow-2xs">12</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: ROMANTIC LETTER ENVELOPE -->
+    <section id="letterSection" class="glass-panel rounded-3xl p-6 sm:p-10 text-center relative">
+      <div class="max-w-xl mx-auto">
+        <span class="text-xs font-bold tracking-widest text-deepRose/70 uppercase">Sana Kalbimden Notlar</span>
+        <h2 class="font-serif text-2xl sm:text-3xl font-semibold text-deepRose mt-1">
+          Aşk Mektubumuz 💌
+        </h2>
+        <p id="envelopeSubtext" class="text-xs sm:text-sm text-softText/80 mt-1 mb-6 transition-all duration-300">
+          Zarfın üzerine dokunarak mektubunu açabilirsin...
+        </p>
+
+        <div id="envelopeCard" onclick="openLetterOnce()" class="cursor-pointer group relative bg-gradient-to-br from-pastelPink to-pastelPeach rounded-2xl p-6 sm:p-8 border border-white shadow-md transition-all duration-500 transform hover:-translate-y-1 hover:shadow-lg">
+          
+          <div id="envelopeClosed" class="flex flex-col items-center justify-center py-6 transition-all duration-500 opacity-100">
+            <div class="w-16 h-16 rounded-full bg-white/80 shadow-xs flex items-center justify-center text-3xl mb-3 group-hover:scale-110 transition-transform duration-300">
+              ✉️
+            </div>
+            <span class="font-serif font-semibold text-deepRose text-lg">Mektubu Açmak İçin Tıkla</span>
+            <span class="text-xs text-softText/70 mt-1 font-medium">Sadece Senin İçin Yazıldı ❤️</span>
+          </div>
+
+          <div id="letterOpen" class="hidden text-left bg-white/95 rounded-xl p-6 sm:p-8 shadow-inner border border-softRose/20 transition-all duration-500 opacity-0 transform scale-95">
+            <div class="flex items-center justify-between text-xs font-semibold text-softRose mb-3 border-b border-softRose/10 pb-2">
+              <span class="italic font-handwriting text-base text-deepRose">Sonsuz Sevgimle...</span>
+              <span>19 Ekim 💖</span>
+            </div>
+            <h3 class="font-handwriting text-2xl sm:text-3xl font-bold text-deepRose mb-4">Biricik Sevgilime,</h3>
+            <p class="font-serif text-sm sm:text-base text-softText leading-relaxed space-y-3">
+              Birlikte geçirdiğimiz 2 koskoca yıl boyunca hayatıma kattığın tüm güzellikler, gülücükler ve o tükenmez huzur için sana ne kadar teşekkür etsem az.
+              <br><br>
+              Senin yanındayken zamanın nasıl aktığını anlamadığım, gözlerine her baktığımda ilk günkü tatlı heyecanı yeniden yaşadığım tek insansın. Ellerini tutmak, seninle aynı hayalleri paylaşmak bu dünyadaki en büyük mutluluğum.
+              <br><br>
+              İyi ki yollarımız kesişmiş, iyi ki hayatımın en güzel parçası olmuşsun. Daha birlikte geçireceğimiz binlerce güzel güne, ortak anılara ve kocaman gülücüklere...
+            </p>
+            <div class="mt-6 pt-3 border-t border-softRose/10 text-right font-handwriting text-2xl font-bold text-deepRose">
+              Seni Çok Seven Sevgilin... ❤️
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: MEMORY POLAROID CARDS (Tıklama kaldırıldı, fotoğraflar eklendi) -->
+    <section class="glass-panel rounded-3xl p-6 sm:p-10">
+      <div class="text-center mb-8">
+        <span class="text-xs font-bold tracking-widest text-deepRose/70 uppercase">Anılarımız</span>
+        <h2 class="font-serif text-2xl sm:text-3xl font-semibold text-deepRose mt-1">
+          Bizim Güzel Hikayemiz 📸
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <!-- Polaroid 1 -->
+        <div class="bg-white p-4 rounded-2xl shadow-xs border border-slate-100 transform -rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-300">
+          <div class="w-full h-56 sm:h-64 rounded-xl bg-gradient-to-tr from-pastelPink to-pastelPeach flex items-center justify-center shadow-inner relative overflow-hidden p-1">
+            <img id="img1" src="1.jpeg" onerror="this.onerror=null; this.src='https://placehold.co/400x400/FFF0F3/9E5268.png?text=An%C4%B1+1'; " class="w-full h-full object-contain rounded-lg" alt="Anı 1">
+          </div>
+          <p class="font-handwriting text-xl text-center text-deepRose mt-3 font-semibold">İlk Gülüşümüz</p>
+          <p class="text-[11px] text-center text-softText/70 mt-0.5">Herşey orda başladı...</p>
+        </div>
+
+        <!-- Polaroid 2 -->
+        <div class="bg-white p-4 rounded-2xl shadow-xs border border-slate-100 transform rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300">
+          <div class="w-full h-56 sm:h-64 rounded-xl bg-gradient-to-tr from-pastelLavender to-pastelPink flex items-center justify-center shadow-inner relative overflow-hidden p-1">
+            <img id="img2" src="2.jpeg" onerror="this.onerror=null; this.src='https://placehold.co/400x400/F3E8FF/9E5268.png?text=An%C4%B1+2'; " class="w-full h-full object-contain rounded-lg" alt="Anı 2">
+          </div>
+          <p class="font-handwriting text-xl text-center text-deepRose mt-3 font-semibold">Uzun yolculuklar</p>
+          <p class="text-[11px] text-center text-softText/70 mt-0.5">Yeni yerlere yol aldık...</p>
+        </div>
+
+        <!-- Polaroid 3 -->
+        <div class="bg-white p-4 rounded-2xl shadow-xs border border-slate-100 transform -rotate-1 hover:rotate-0 hover:scale-105 transition-all duration-300">
+          <div class="w-full h-56 sm:h-64 rounded-xl bg-gradient-to-tr from-pastelPeach to-pastelLavender flex items-center justify-center shadow-inner relative overflow-hidden p-1">
+            <img id="img3" src="3.jpeg" onerror="this.onerror=null; this.src='https://placehold.co/400x400/FFE8E0/9E5268.png?text=An%C4%B1+3'; " class="w-full h-full object-contain rounded-lg" alt="Anı 3">
+          </div>
+          <p class="font-handwriting text-xl text-center text-deepRose mt-3 font-semibold">Sonsuz Geleceğimiz</p>
+          <p class="text-[11px] text-center text-softText/70 mt-0.5">El ele daha güzel yarınlara...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: REASON GENERATOR -->
+    <section class="glass-panel rounded-3xl p-6 sm:p-8 text-center relative overflow-hidden">
+      <h3 class="font-serif text-xl sm:text-2xl font-semibold text-deepRose">
+        Seni Neden Bu Kadar Çok Seviyorum? 💕
+      </h3>
+      <p class="text-xs sm:text-sm text-softText/80 mt-1 mb-4">
+        Butona her bastığında seni sevmemin yüzlerce nedeninden birini görebilirsin.
+      </p>
+
+      <div id="reasonDisplay" class="max-w-md mx-auto bg-white/90 p-4 rounded-2xl border border-softRose/30 text-sm font-medium text-deepRose mb-4 shadow-xs transition-all duration-300 min-h-[60px] flex items-center justify-center">
+        "Gözlerinin içi gülerek bana baktığın her an için..."
+      </div>
+
+      <button id="reasonBtn" onclick="generateNewReason()" class="px-6 py-3 bg-gradient-to-r from-softRose to-deepRose text-white font-semibold rounded-xl text-xs sm:text-sm shadow-md hover:opacity-95 transition-all transform hover:scale-105 active:scale-95">
+        🎲 Başka Bir Nedeni Gör
+      </button>
+    </section>
+
+  </main>
+
+  <footer class="mt-12 text-center text-xs text-softText/70 font-medium space-y-1">
+    <p>2. Yılımız Kutlu Olsun • Sevgiyle Hazırlandı ❤️</p>
+    <p class="text-[11px] opacity-80">Design by akn</p>
+  </footer>
+
+  <script>
+    // 1. GERÇEK ZAMANLI LİVE ZAMAN SAYACI (19 EKİM 2024'TEN BUGÜNE)
+    const startDate = new Date('2024-10-19T00:00:00');
+
+    function updateLiveCounter() {
+      const now = new Date();
+      const diffTime = Math.max(0, now - startDate);
+
+      const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diffTime / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diffTime / (1000 * 60)) % 60);
+      const seconds = Math.floor((diffTime / 1000) % 60);
+
+      document.getElementById('cntDays').innerText = days;
+      document.getElementById('cntHours').innerText = hours;
+      document.getElementById('cntMins').innerText = minutes;
+      document.getElementById('cntSecs').innerText = seconds;
+    }
+
+    // 2. SÜZÜLEN KALPLER OLUŞTURUCU
+    function createFloatingHearts() {
+      const container = document.getElementById('bg-hearts');
+      if (!container) return;
+      const icons = ['❤️', '💖', '🌸', '💕', '✨'];
+      for (let i = 0; i < 15; i++) {
+        const heart = document.createElement('div');
+        heart.className = 'bg-heart';
+        heart.innerText = icons[Math.floor(Math.random() * icons.length)];
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDuration = (Math.random() * 8 + 6) + 's';
+        heart.style.animationDelay = (Math.random() * 5) + 's';
+        heart.style.fontSize = (Math.random() * 12 + 14) + 'px';
+        container.appendChild(heart);
+      }
+    }
+
+    // 3. MP3 AUDIO PLAYER (Cengiz Kurtoğlu - Liselim) & Equalizer
+    const romanticAudio = new Audio('liselim.mp3');
+    romanticAudio.loop = true;
+    let isPlayingMusic = false;
+
+    function toggleRomanticMusic() {
+      const btnText = document.getElementById('musicText');
+      const btnIcon = document.getElementById('musicIcon');
+      const eqWave = document.getElementById('eqWave');
+
+      if (!isPlayingMusic) {
+        romanticAudio.play().then(() => {
+          isPlayingMusic = true;
+          if (btnText) btnText.innerText = "Şarkıyı Durdur";
+          if (btnIcon) btnIcon.innerText = "💖";
+          if (eqWave) eqWave.classList.remove('hidden'), eqWave.classList.add('flex');
+        }).catch(error => {
+          console.log("Müzik çalma hatası:", error);
+          alert("Lütfen klasörde 'liselim.mp3' dosyasının olduğundan emin olun!");
+        });
+      } else {
+        romanticAudio.pause();
+        isPlayingMusic = false;
+        if (btnText) btnText.innerText = "Bizim Şarkımız";
+        if (btnIcon) btnIcon.innerText = "🎵";
+        if (eqWave) eqWave.classList.add('hidden'), eqWave.classList.remove('flex');
+      }
+    }
+
+    // 4. REASONS ARRAY & NON-REPEATING GENERATOR
+    const loveReasons = [
+      "Bana her zaman kendimi özel ve değerli hissettirdiğin için...",
+      "Gülüşünle en karanlık günlerimi bile aydınlattığın için...",
+      "Birlikte saçmalayıp en içten gülücükleri paylaştığımız için...",
+      "Elimi tuttuğunda içimi kaplayan o tarif edilemez huzur için...",
+      "Hayallerime inanıp her adımımda yanımda durduğun için...",
+      "Sesini duyduğum an kalbimin ritmini değiştirdiğin için...",
+      "Seninle geçen her anın bir masal gibi hissettirmesi yüzünden...",
+      "Dünyadaki her şeyden çok kalbinin güzelliğini sevdiğim için...",
+      "İyi günümde de kötü günümde de güvenebildiğim tek sığınağım olduğun için..."
+    ];
+
+    const finalSpecialReason = "Ve en önemlisi... Birlikte attığımız her adımda hayatımı güzelleştiren o kocaman kalbin için! Seni her şeyden çok seviyorum sevgilim. ❤️";
+
+    let remainingReasons = [...loveReasons];
+
+   function generateNewReason() {
+      const display = document.getElementById('reasonDisplay');
+      const btn = document.getElementById('reasonBtn');
+
+      display.style.opacity = '0';
+      display.style.transform = 'translateY(4px)';
+
+      setTimeout(() => {
+        if (remainingReasons.length > 0) {
+          const randomIndex = Math.floor(Math.random() * remainingReasons.length);
+          const chosenReason = remainingReasons.splice(randomIndex, 1)[0];
+          display.innerText = `"${chosenReason}"`;
+
+          if (typeof confetti === 'function') {
+            confetti({
+              particleCount: 15,
+              spread: 40,
+              origin: { y: 0.8 },
+              colors: ['#F3A0B2', '#FFF0F3']
+            });
+          }
+        } else {
+          // Bütün nedenler bittiğinde çalışacak alan
+          display.innerText = `"${finalSpecialReason}"`;
+          
+          if (btn) {
+            btn.style.transition = "all 0.5s ease";
+            btn.style.opacity = "0";
+            btn.style.transform = "scale(0.8)";
+            
+            setTimeout(() => {
+              // Eski butonu kaldırıp yerine Hediye Gör butonunu ekliyoruz
+              btn.outerHTML = `
+                <a href="bilet.html" id="giftBtn" class="inline-block px-8 py-4 bg-gradient-to-r from-amber-400 via-rose-400 to-deepRose text-white font-bold rounded-2xl text-sm sm:text-base shadow-lg hover:shadow-xl transition-all transform hover:scale-105 animate-bounce">
+                  🎁 Özel Hediyeni Gör ✨
+                </a>
+              `;
+            }, 400);
+          }
+
+          if (typeof confetti === 'function') {
+            confetti({
+              particleCount: 120,
+              spread: 80,
+              origin: { y: 0.7 },
+              colors: ['#F3A0B2', '#9E5268', '#FBBF24']
+            });
+          }
+        }
+
+        display.style.opacity = '1';
+        display.style.transform = 'translateY(0)';
+      }, 200);
+    }
+
+    // 5. PERFECT MATHEMATICAL 3D DAISY GAME
+    const DaisyNotes = [
+      "Sevgin kalbimin en tatlı köşesinde! 💖",
+      "Gülüşün dünyanın en güzel manzarası! 🌸",
+      "Seni her gün daha çok seviyorum! ✨",
+      "İyi ki yollarımız kesişti! 💕",
+      "Sen benim en güzel şansımsın! 🍀",
+      "Gözlerin bana huzur veriyor! 👁️✨",
+      "Seninle her an çok kıymetli! ⏳❤️",
+      "Hayatımın en tatlı hediyesisin! 🎁",
+      "Her gülüşün bahar gibi! 🌺",
+      "Sonsuza dek el ele! 🤝❤️",
+      "Birlikte çok güzeliz! 👑",
+      "SONSUZA DEK SEVİYOR! 🎉❤️"
+    ];
+
+    let currentPetalIndex = 0;
+    const totalPetals = 12;
+
+    function buildPerfect3DDaisy() {
+      const petalsGroup = document.getElementById('petalsGroup');
+      if (!petalsGroup) return;
+      petalsGroup.innerHTML = '';
+
+      for (let i = 0; i < totalPetals; i++) {
+        const angle = (360 / totalPetals) * i;
+        const petalG = createMathematicalPetalSVG(i, angle);
+        petalsGroup.appendChild(petalG);
+      }
+    }
+
+    function createMathematicalPetalSVG(index, angle) {
+      const petalG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+      petalG.setAttribute("class", "petal-group");
+      petalG.setAttribute("id", `petal-${index}`);
+      petalG.setAttribute("onclick", `pluckPetal(event, ${index})`);
+
+      petalG.innerHTML = `
+        <g transform="translate(200, 200) rotate(${angle})">
+          <path d="M 0 0 C -16 -40, -18 -110, 0 -150 C 18 -110, 16 -40, 0 0 Z"
+                fill="rgba(158, 82, 104, 0.1)" transform="translate(2, 4)"/>
+          <path d="M 0 0 C -16 -40, -18 -110, 0 -150 C 18 -110, 16 -40, 0 0 Z"
+                fill="url(#petalGrad3D)" stroke="rgba(255, 255, 255, 0.95)" stroke-width="1.8"/>
+          <path d="M 0 0 C -16 -40, -18 -110, 0 -150 C 18 -110, 16 -40, 0 0 Z"
+                fill="url(#petalHighlight)" opacity="0.8"/>
+          <path d="M 0 -12 C 0 -50, 0 -110, 0 -142" stroke="rgba(243, 160, 178, 0.45)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+          <path d="M 0 -40 Q -6 -60 -10 -80" stroke="rgba(243, 160, 178, 0.2)" stroke-width="1" fill="none"/>
+          <path d="M 0 -40 Q 6 -60 10 -80" stroke="rgba(243, 160, 178, 0.2)" stroke-width="1" fill="none"/>
+        </g>
+      `;
+
+      return petalG;
+    }
+
+    function spawnPluckSparkles(x, y) {
+      const container = document.getElementById('daisyContainer');
+      if (!container) return;
+      const icons = ['✨', '🌸', '💖', '⭐', '💕', '🌷'];
+
+      for (let i = 0; i < 8; i++) {
+        const p = document.createElement('div');
+        p.className = 'sparkle-particle';
+        p.innerText = icons[Math.floor(Math.random() * icons.length)];
+
+        const tx = (Math.random() - 0.5) * 160 + 'px';
+        const ty = (Math.random() - 0.5) * 160 - 50 + 'px';
+        p.style.setProperty('--tx', tx);
+        p.style.setProperty('--ty', ty);
+
+        const rect = container.getBoundingClientRect();
+        p.style.left = (x - rect.left) + 'px';
+        p.style.top = (y - rect.top) + 'px';
+
+        container.appendChild(p);
+        setTimeout(() => p.remove(), 900);
+      }
+    }
+
+    function pluckPetal(event, index) {
+      const petalElem = document.getElementById(`petal-${index}`);
+      if (!petalElem || petalElem.classList.contains('petal-falling')) return;
+
+      if (event && event.clientX && event.clientY) {
+        spawnPluckSparkles(event.clientX, event.clientY);
+      }
+
+      petalElem.classList.add('petal-falling');
+
+      const remaining = totalPetals - (currentPetalIndex + 1);
+      const countEl = document.getElementById('petalsCount');
+      if (countEl) countEl.innerText = Math.max(0, remaining);
+
+      const noteText = document.getElementById('noteText');
+      if (noteText) {
+        noteText.style.opacity = '0';
+        setTimeout(() => {
+          noteText.innerText = DaisyNotes[currentPetalIndex];
+          noteText.style.opacity = '1';
+
+          currentPetalIndex++;
+
+          if (currentPetalIndex >= totalPetals) {
+            triggerFinalCelebration();
+          }
+        }, 180);
+      }
+    }
+
+    function clickDaisyCenter() {
+      if (currentPetalIndex < totalPetals) {
+        for (let i = 0; i < totalPetals; i++) {
+          const petal = document.getElementById(`petal-${i}`);
+          if (petal && !petal.classList.contains('petal-falling')) {
+            const centerG = document.getElementById('daisyCenterGroup');
+            if (centerG) {
+              const rect = centerG.getBoundingClientRect();
+              pluckPetal({ clientX: rect.left + rect.width / 2, clientY: rect.top + rect.height / 2 }, i);
+            }
+            break;
+          }
+        }
+      } else {
+        triggerFinalCelebration();
+      }
+    }
+
+    function triggerFinalCelebration() {
+      const noteText = document.getElementById('noteText');
+      if (noteText) {
+        noteText.innerHTML = "🎉 <b class='text-deepRose font-serif text-base'>SONSUZA DEK SEVİYOR!</b><br>Sen Benim Her Şeyimsin Sevgilim! ❤️";
+      }
+
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 160,
+          spread: 85,
+          origin: { y: 0.5 },
+          colors: ['#F3A0B2', '#FFF0F3', '#9E5268', '#FDE047', '#FFE066']
+        });
+      }
+    }
+
+    // 6. ROMANTIC LETTER ENVELOPE (SÜREKLİ AÇIK KALIR)
+    let isLetterOpened = false;
+
+    function openLetterOnce() {
+      if (isLetterOpened) return;
+
+      const closedView = document.getElementById('envelopeClosed');
+      const openView = document.getElementById('letterOpen');
+      const card = document.getElementById('envelopeCard');
+      const subtext = document.getElementById('envelopeSubtext');
+
+      if (closedView) closedView.classList.add('hidden');
+      if (openView) {
+        openView.classList.remove('hidden');
+        setTimeout(() => {
+          openView.classList.remove('opacity-0', 'scale-95');
+          openView.classList.add('opacity-100', 'scale-100');
+        }, 10);
+      }
+
+      if (card) card.classList.remove('cursor-pointer');
+      if (subtext) subtext.innerText = "Sana Özel Aşk Mektubumuz ❤️";
+
+      isLetterOpened = true;
+
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 50,
+          spread: 50,
+          origin: { y: 0.7 },
+          colors: ['#F3A0B2', '#9E5268']
+        });
+      }
+    }
+
+    window.onload = function() {
+      buildPerfect3DDaisy();
+      createFloatingHearts();
+      updateLiveCounter();
+      setInterval(updateLiveCounter, 1000);
+    };
+  </script>
+</body>
+</html>
